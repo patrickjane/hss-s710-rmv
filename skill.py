@@ -59,10 +59,6 @@ class Skill(hss.BaseSkill):
 
         # parameters
 
-        self.mqtt_host = "localhost:1883"
-        self.mqtt_user = None
-        self.mqtt_pass = None
-
         self.rmv_api_key = None
         self.rmv_homestation = None
         self.rmv_homecity = None
@@ -70,24 +66,24 @@ class Skill(hss.BaseSkill):
         self.time_offset = None
         self.short_info = False
 
-        # get params from config.ini (HASS host + token)
+        # get params from config.ini
 
-        if 'rmv_api_key' in self.config['secret']:
-            self.rmv_api_key = self.config['secret']['rmv_api_key']
+        if 'rmv_api_key' in self.config['skill']:
+            self.rmv_api_key = self.config['skill']['rmv_api_key']
 
-        if 'rmv_homestation' in self.config['global']:
-            self.rmv_homestation = self.config['global']['rmv_homestation']
+        if 'rmv_homestation' in self.config['skill']:
+            self.rmv_homestation = self.config['skill']['rmv_homestation']
 
-        if 'rmv_homecity' in self.config['global']:
-            self.rmv_homecity = self.config['global']['rmv_homecity']
+        if 'rmv_homecity' in self.config['skill']:
+            self.rmv_homecity = self.config['skill']['rmv_homecity']
 
-        if 'rmv_homecity_only' in self.config['global'] and self.config['global']['rmv_homecity_only'] == "False":
+        if 'rmv_homecity_only' in self.config['skill'] and self.config['skill']['rmv_homecity_only'] == "False":
             self.rmv_homecity_only = False
 
-        if 'time_offset' in self.config['global']:
-            self.time_offset = int(self.config['global']['time_offset'])
+        if 'time_offset' in self.config['skill']:
+            self.time_offset = int(self.config['skill']['time_offset'])
 
-        if 'short_info' in self.config['global'] and self.config['global']['short_info'] == "True":
+        if 'short_info' in self.config['skill'] and self.config['skill']['short_info'] == "True":
             self.short_info = True
 
     # --------------------------------------------------------------------------
