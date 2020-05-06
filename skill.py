@@ -112,6 +112,9 @@ class Skill(hss.BaseSkill):
 
         response_message = self.query(location, dep_time)
 
+        if response_message is None or response_message is False:
+            response_message = "Verbindung konnte nicht abgefragt werden"
+
         return self.done(session_id, site_id, intent_name, response_message, "de_DE")
 
     # -------------------------------------------------------------------------
@@ -270,6 +273,7 @@ class Skill(hss.BaseSkill):
         response_string = ""
 
         if not stops:
+            self.log.warning("No train stops received")
             return None
 
         for i in range(len(stops)):
