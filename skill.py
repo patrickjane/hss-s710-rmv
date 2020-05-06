@@ -43,10 +43,10 @@ TRIP_SVC = "https://www.rmv.de/hapi/trip"
 SKILL_ID = "s710-rmv"
 
 # -----------------------------------------------------------------------------
-# class App
+# class Skill
 # -----------------------------------------------------------------------------
 
-class App(hss.BaseSkill):
+class Skill(hss.BaseSkill):
 
     # -------------------------------------------------------------------------
     # ctor
@@ -55,9 +55,7 @@ class App(hss.BaseSkill):
         super().__init__()
 
         self.my_intents = ['s710:getTrainTo']
-
         self.logger = logging.getLogger(SKILL_ID)
-        self.debug = debug
 
         # parameters
 
@@ -92,8 +90,6 @@ class App(hss.BaseSkill):
         if 'short_info' in self.config['global'] and self.config['global']['short_info'] == "True":
             self.short_info = True
 
-        self.logger.debug("Connecting to {}@{} ...".format(self.mqtt_user, self.mqtt_host))
-
     # --------------------------------------------------------------------------
     # get_intentlist (overwrites BaseSkill.get_intentlist)
     # --------------------------------------------------------------------------
@@ -106,18 +102,11 @@ class App(hss.BaseSkill):
     # --------------------------------------------------------------------------
 
     def handle(self, request, session_id, site_id, intent_name, slots):
-        dep_time = slots["DepTime"] if "DepTime" in slots else None
-        location = slots["Location"] if "Location" in slots else None
+        dep_time = slots["depTime"] if "depTime" in slots else None
+        location = slots["location"] if "location" in slots else None
 
         if dep_time:
             dep_time = dep_time.split("+")[0].strip().split(" ")[-1]  # "2019-08-26 18:30:00 +00:00" -> "18:30:00"
-
-    # -------------------------------------------------------------------------
-    # on_intent
-
-    def on_intent(self, hermes, intent_message):
-        location = None
-        dep_time = None
 
         # ignore unknown/unexpected intents
 
@@ -314,13 +303,3 @@ class App(hss.BaseSkill):
             return category + " " + train
 
         return train
-
-    # -------------------------------------------------------------------------
-    # done
-
-    def done(self, hermes, intent_message, response_message):
-        if response_message is not None:
-            hermes.publish_end_session(intent_message.session_id, response_message)
-        else:
-            hermes.publish_end_session(intent_message.session_id, "Verbindung konnte nicht abgefragt werden")
-

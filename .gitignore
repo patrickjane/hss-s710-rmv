@@ -7,3 +7,4 @@ venv
 *egg*
 dist
 build
+config.ini

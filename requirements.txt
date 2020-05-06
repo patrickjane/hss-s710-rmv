@@ -1,2 +1,2 @@
-hss_skill>=0.1.2
+hss_skill>=0.2.0
 requests>=2.22.0
