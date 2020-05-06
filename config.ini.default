@@ -1,6 +1,6 @@
 [global]
-rmv_homestation=Hauptwache
-rmv_homecity=Frankfurt
+rmv_homestation=
+rmv_homecity=
 rmv_homecity_only=False
 time_offset=0
 short_info=False
