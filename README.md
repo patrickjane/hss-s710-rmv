@@ -8,7 +8,7 @@ Benötigt den [Hermes Skill Server](https://github.com/patrickjane/hss-server) (
 
 #### 1) Registrierung bei RMV Open Data
 
-Die Fahrpläne werden direkt bei der RMV über die Open Data API abgefragt. Hierfür ist eine Registrierung/Zugangstoken nötig.    
+Die Fahrpläne werden direkt bei der RMV über die Open Data API abgefragt. Hierfür ist eine Registrierung/Zugangstoken nötig.
 
 Die Registrierung ist hier möglich: https://opendata.rmv.de/site/anmeldeseite.html
 
@@ -27,13 +27,12 @@ Creating venv ...
 Installing dependencies ...
 [...]
 Initializing config.ini ...
-Section 'global'
+Section 'skill'
 Enter value for parameter 'rmv_homestation': Hauptwache
 Enter value for parameter 'rmv_homecity': Frankfurt
 Enter value for parameter 'rmv_homecity_only': False
 Enter value for parameter 'time_offset': 0
 Enter value for parameter 'short_info': False
-Section 'secret'
 Enter value for parameter 'rmv_api_key': xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 Skill 'hss-s710-rmv' successfully installed.
@@ -62,9 +61,11 @@ Die App umfasst folgende Intents:
 
 - `s710:getTrainTo` - Suche einer Verbindung von der Home-Station zu einer Zielstation. Optional zu einer bestimmen Uhrzeit.
 
-Die App kann Verbindungen im gesamten RMV-Gebiet abfragen. Hierbei kann es passieren, dass Stationen nicht eindeutig sind ("Willy-Brand-Platz Darmstadt" vs. "Willy-Brand-Platz Frankfurt"). Um dieses Problem zu lösen, gibt es 2 Möglichkeiten:    
+Die App kann Verbindungen im gesamten RMV-Gebiet abfragen. Hierbei kann es passieren, dass Stationen nicht eindeutig sind ("Willy-Brand-Platz Darmstadt" vs. "Willy-Brand-Platz Frankfurt").     
 
-1) Im Sprachkommando den Städtenamen mit sprechen ("Wann fährt die nächste Bahn zum Willy-Brandt-Platz Frankfurt?")
+Um dieses Problem zu lösen, gibt es 2 Möglichkeiten:
+
+1) Im Sprachkommando den Städtenamen mit sprechen ("Wann fährt die nächste Bahn zum Willy-Brandt-Platz Frankfurt?")    
 2) Den Parameter `rmv_homecity_only` aktivieren
 
 Bei Variante 2) ergänzt die App bei jeder Stationssuche den Namen der Heimatstadt. Das bedeutet, bei *"Wann fährt die nächste Bahn zum Willy-Brandt-Platz?"* wird nach "Willy-Brandt-Platz Frankfurt" gesucht. Das bedeutet gleichzeitig, dass dabei keine Suche mehr ausserhalb der Heimatstadt möglich ist (*"Wann fährt die nächste Bahn zum Willy-Brandt-Platz Darmstadt?"* würde entsprechend zu "Willy-Brandt-Platz Darmstadt Frankfurt").
