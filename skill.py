@@ -90,14 +90,14 @@ class Skill(hss.BaseSkill):
     # get_intentlist (overwrites BaseSkill.get_intentlist)
     # --------------------------------------------------------------------------
 
-    def get_intentlist(self):
+    async def get_intentlist(self):
         return self.my_intents
 
     # --------------------------------------------------------------------------
     # handle (overwrites BaseSkill.handle)
     # --------------------------------------------------------------------------
 
-    def handle(self, request, session_id, site_id, intent_name, slots):
+    async def handle(self, request, session_id, site_id, intent_name, slots):
         dep_time = slots["depTime"] if "depTime" in slots else None
         location = slots["location"] if "location" in slots else None
 
@@ -115,7 +115,7 @@ class Skill(hss.BaseSkill):
         if response_message is None or response_message is False:
             response_message = "Verbindung konnte nicht abgefragt werden"
 
-        return self.done(session_id, site_id, intent_name, response_message, "de_DE")
+        return self.answer(session_id, site_id, response_message, "de_DE")
 
     # -------------------------------------------------------------------------
     # query
